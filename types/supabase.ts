@@ -1,5 +1,3 @@
-export type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
-
 export interface Database {
   public: {
     Tables: {
@@ -12,22 +10,16 @@ export interface Database {
           created_at: string;
         };
         Insert: {
-          id?: never; // auto-generated
-          user_id?: string; // will be set by default
           url: string;
           title: string;
-          created_at?: string;
+          user_id?: string;   // optional, default will be set by DB
+          created_at?: string; // optional, default now()
         };
         Update: {
-          id?: never;
-          user_id?: never; // cannot change
           url?: string;
           title?: string;
-          created_at?: never;
         };
       };
     };
-    Views: {};
-    Functions: {};
   };
 }
