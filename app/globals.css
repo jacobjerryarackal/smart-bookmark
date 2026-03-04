@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+  --color-dark: #2B2D42;
+  --color-light-gray: #8D99AE;
+  --color-off-white: #EDF2F4;
+  --color-bright-red: #EF233C;
+  --color-dark-red: #D90429;
+}
+
 @layer base {
   body {
-    @apply antialiased;
+    @apply antialiased bg-dark text-off-white;
   }
 
   /* Custom scrollbar */
@@ -14,6 +22,6 @@
     @apply bg-transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-indigo-200/50 hover:bg-indigo-300/70 transition-colors;
+    @apply rounded-full bg-light-gray/50 hover:bg-light-gray/70 transition-colors;
   }
 }
