@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import './globals.css'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Smart Bookmarks',
-  description: 'A simple bookmark manager',
+  description: 'A beautiful bookmark manager',
 }
 
 export default function RootLayout({
@@ -13,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen">
+      <body className={`${inter.className} bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 min-h-screen`}>
         {children}
       </body>
     </html>
