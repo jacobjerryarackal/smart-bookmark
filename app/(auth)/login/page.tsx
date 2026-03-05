@@ -15,30 +15,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-dark">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="w-full max-w-md"
       >
-        <div className="relative overflow-hidden rounded-2xl bg-white/80 backdrop-blur-xl shadow-2xl border border-white/20 p-8">
-          {/* Animated gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 animate-gradient-x" />
-
+        <div className="relative overflow-hidden rounded-2xl bg-dark/80 backdrop-blur-xl shadow-2xl border border-light-gray/20 p-8">
+          <div className="absolute inset-0 bg-gradient-to-br from-bright-red/5 via-transparent to-dark-red/5" />
           <div className="relative z-10">
-            <h1 className="mb-2 text-center text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="mb-2 text-center text-4xl font-bold bg-gradient-to-r from-bright-red to-dark-red bg-clip-text text-transparent">
               Smart Bookmarks
             </h1>
-            <p className="mb-8 text-center text-gray-600">
+            <p className="mb-8 text-center text-light-gray">
               Sign in to manage your bookmarks in style
             </p>
-
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleLogin}
-              className="flex w-full items-center justify-center gap-3 rounded-xl bg-white px-6 py-4 text-gray-700 shadow-lg transition-all hover:shadow-xl border border-gray-200"
+              className="flex w-full items-center justify-center gap-3 rounded-xl bg-off-white/10 backdrop-blur-sm px-6 py-4 text-off-white shadow-lg transition-all hover:bg-off-white/20 border border-light-gray/30"
             >
               <svg className="h-6 w-6" viewBox="0 0 24 24">
                 <path

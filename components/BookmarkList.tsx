@@ -7,11 +7,28 @@ import { Trash2, ExternalLink } from 'lucide-react'
 
 type Bookmark = Tables<'bookmarks'>
 
-export default function BookmarkList({ bookmarks }: { bookmarks: Bookmark[] }) {
+interface BookmarkListProps {
+  bookmarks: Bookmark[]
+  onDelete?: (id: number) => void // optional callback for optimistic update
+}
+
+export default function BookmarkList({ bookmarks, onDelete }: BookmarkListProps) {
   const supabase = createClient()
 
   const handleDelete = async (id: number) => {
-    await supabase.from('bookmarks').delete().eq('id', id)
+    // Show confirmation popup
+    const confirmDelete = window.confirm('Are you sure you want to delete this bookmark?')
+    if (!confirmDelete) return
+
+    // Optimistically update parent if callback provided
+    if (onDelete) onDelete(id)
+
+    // Perform deletion
+    const { error } = await supabase.from('bookmarks').delete().eq('id', id)
+    if (error) {
+      console.error('Delete error', error)
+      // Revert optimistic update? (optional)
+    }
   }
 
   const formatDate = (dateString: string | null) => {
@@ -28,9 +45,9 @@ export default function BookmarkList({ bookmarks }: { bookmarks: Bookmark[] }) {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="mt-8 rounded-2xl bg-white/60 backdrop-blur-sm p-16 text-center border border-white/30 shadow-xl"
+        className="mt-8 rounded-2xl bg-dark/50 backdrop-blur-sm p-16 text-center border border-light-gray/20 shadow-xl"
       >
-        <p className="text-lg text-gray-600">✨ No bookmarks yet. Add your first one above!</p>
+        <p className="text-lg text-light-gray">✨ No bookmarks yet. Add your first one above!</p>
       </motion.div>
     )
   }
@@ -46,22 +63,22 @@ export default function BookmarkList({ bookmarks }: { bookmarks: Bookmark[] }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
-            className="group relative rounded-2xl bg-white/80 backdrop-blur-sm p-6 shadow-lg hover:shadow-2xl border border-white/30 hover:border-indigo-200 transition-all"
+            className="group relative rounded-2xl bg-dark/70 backdrop-blur-sm p-6 shadow-lg hover:shadow-2xl border border-light-gray/20 hover:border-bright-red/50 transition-all"
           >
             <div className="pr-8">
-              <h3 className="mb-2 text-xl font-semibold text-gray-800 line-clamp-1">
+              <h3 className="mb-2 text-xl font-semibold text-off-white line-clamp-1">
                 {bookmark.title}
               </h3>
               <a
                 href={bookmark.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-800 break-all line-clamp-1"
+                className="flex items-center gap-1 text-sm text-light-gray hover:text-off-white break-all line-clamp-1 transition-colors"
               >
                 {bookmark.url}
                 <ExternalLink size={14} className="opacity-50" />
               </a>
-              <p className="mt-3 text-xs text-gray-400">
+              <p className="mt-3 text-xs text-light-gray/60">
                 {formatDate(bookmark.created_at)}
               </p>
             </div>
@@ -69,7 +86,7 @@ export default function BookmarkList({ bookmarks }: { bookmarks: Bookmark[] }) {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => handleDelete(bookmark.id)}
-              className="absolute right-4 top-4 rounded-full p-2 text-gray-400 transition-all hover:bg-red-100 hover:text-red-500"
+              className="absolute right-4 top-4 rounded-full p-2 text-light-gray/50 transition-all hover:bg-bright-red/20 hover:text-bright-red"
               aria-label="Delete bookmark"
             >
               <Trash2 size={18} />
