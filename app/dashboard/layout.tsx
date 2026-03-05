@@ -31,9 +31,14 @@ export default async function DashboardLayout({
               Smart Bookmarks
             </h1>
             <div className="flex items-center gap-4">
-              <span className="text-sm text-light-gray bg-dark/50 px-3 py-1 rounded-full hidden sm:block border border-light-gray/20">
-                {user.email}
-              </span>
+              <div className="flex items-center gap-2 bg-dark/50 px-3 py-1.5 rounded-full border border-light-gray/20">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-bright-red to-dark-red flex items-center justify-center text-xs font-bold text-off-white">
+                  {user.email?.charAt(0).toUpperCase()}
+                </div>
+                <span className="text-sm text-white hidden sm:inline-block">
+                  {user.email}
+                </span>
+              </div>
               <LogoutButton />
             </div>
           </div>
