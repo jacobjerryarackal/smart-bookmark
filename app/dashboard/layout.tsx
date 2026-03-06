@@ -31,11 +31,11 @@ export default async function DashboardLayout({
               Smart Bookmarks
             </h1>
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 bg-dark/50 px-3 py-1.5 rounded-full border border-light-gray/20">
+              <div className="flex items-center gap-2 bg-dark/50 px-3 py-1.5 rounded-full border border-light-gray/20 hover:border-bright-red/50 transition-all group relative">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-bright-red to-dark-red flex items-center justify-center text-xs font-bold text-off-white">
                   {user.email?.charAt(0).toUpperCase()}
                 </div>
-                <span className="text-sm text-white hidden sm:inline-block">
+                <span className="text-sm text-white hidden sm:inline-block group-hover:text-off-white transition-colors">
                   {user.email}
                 </span>
               </div>
