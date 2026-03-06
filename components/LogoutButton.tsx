@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { LogOut } from 'lucide-react'
 import LogoutConfirmModal from './LogoutConfirmModal'
+import Portal from './Portal'
 
 export default function LogoutButton() {
   const [showModal, setShowModal] = useState(false)
@@ -29,11 +30,15 @@ export default function LogoutButton() {
         Sign out
       </motion.button>
 
-      <LogoutConfirmModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onConfirm={handleLogout}
-      />
+      {showModal && (
+        <Portal>
+          <LogoutConfirmModal
+            isOpen={showModal}
+            onClose={() => setShowModal(false)}
+            onConfirm={handleLogout}
+          />
+        </Portal>
+      )}
     </>
   )
 }
